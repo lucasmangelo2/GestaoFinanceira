@@ -1,0 +1,19 @@
+services:
+  lancamentos.api:
+    image: ${DOCKER_REGISTRY-}lancamentosapi
+    build:
+      context: .
+      dockerfile: Lancamentos.Api/Dockerfile
+
+  lancamento-postgres:
+    image: postgres
+    container_name: lancamento-postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: lancamento-db
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
